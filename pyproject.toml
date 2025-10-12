@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demand_forecast"
+version = "0.1.0"
+description = "LSTM Restaurant Raw Material Demand Prediction"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

@@ -1,0 +1,13 @@
+# Core
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.1
+joblib==1.4.2
+PyYAML==6.0.2
+
+# Modeling & plots
+tensorflow==2.16.2
+matplotlib==3.9.0
+
+# Dev
+tqdm==4.66.5

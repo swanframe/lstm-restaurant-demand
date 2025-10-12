@@ -1,0 +1,79 @@
+Menu,Ingredient,Required_Grams
+BBQ Ribs,Garlic,5.0
+BBQ Ribs,Lamb Shoulder,150.0
+BBQ Ribs,Olive Oil,8.0
+Beef Burrito,Beef Sirloin,110.0
+Beef Burrito,Brown Rice,100.0
+Beef Burrito,Garlic,5.0
+Beef Burrito,Leaf Spinach,20.0
+Beef Burrito,Tomatoes,40.0
+Chicken Tacos,Bell Peppers,30.0
+Chicken Tacos,Diced Chicken,90.0
+Chicken Tacos,Fresh Wheat Noodles,60.0
+Chicken Tacos,Garlic,5.0
+Chicken Tacos,Tomatoes,30.0
+Chocolate Cake,Almonds,10.0
+Chocolate Cake,Pastry Cream,50.0
+Chocolate Cake,Raisins,10.0
+Chocolate Cake,Toasted Coconut Flakes,20.0
+Chocolate Cake,Wheat Flour,120.0
+Classic Burger,Beef Sirloin,120.0
+Classic Burger,Garlic,5.0
+Classic Burger,Leaf Spinach,10.0
+Classic Burger,Olive Oil,5.0
+Classic Burger,Tomatoes,25.0
+Classic Burger,Wheat Flour,20.0
+Fruit Smoothie,Banana,100.0
+Fruit Smoothie,Coconut Milk,150.0
+Fruit Smoothie,Raisins,10.0
+Grilled Chicken Salad,Diced Chicken,110.0
+Grilled Chicken Salad,Leaf Spinach,40.0
+Grilled Chicken Salad,Lemon,5.0
+Grilled Chicken Salad,Olive Oil,5.0
+Grilled Chicken Salad,Tomatoes,30.0
+Iced Coffee,Almonds,5.0
+Iced Coffee,Coconut Milk,120.0
+Lemon Tart,Almonds,10.0
+Lemon Tart,Lemon,20.0
+Lemon Tart,Pastry Cream,40.0
+Lemon Tart,Wheat Flour,100.0
+Margherita Pizza,Garlic,5.0
+Margherita Pizza,Olive Oil,10.0
+Margherita Pizza,Tomatoes,80.0
+Margherita Pizza,Wheat Flour,120.0
+Mushroom Risotto,Brown Rice,120.0
+Mushroom Risotto,Button Mushrooms,100.0
+Mushroom Risotto,Garlic,5.0
+Mushroom Risotto,Olive Oil,8.0
+Pancake Stack,Banana,50.0
+Pancake Stack,Coconut Milk,20.0
+Pancake Stack,Pastry Cream,30.0
+Pancake Stack,Wheat Flour,100.0
+Seafood Paella,Bell Peppers,40.0
+Seafood Paella,Brown Rice,120.0
+Seafood Paella,Garlic,5.0
+Seafood Paella,Shrimp,80.0
+Seafood Paella,White Fish Fillet,80.0
+Spaghetti Bolognese,Beef Sirloin,100.0
+Spaghetti Bolognese,Garlic,5.0
+Spaghetti Bolognese,Tomatoes,60.0
+Spaghetti Bolognese,Wheat Flour,90.0
+Sushi Platter,Brown Rice,100.0
+Sushi Platter,Coconut Milk,5.0
+Sushi Platter,Edamame,30.0
+Sushi Platter,Shrimp,50.0
+Sushi Platter,White Fish Fillet,90.0
+Tomato Soup,Garlic,5.0
+Tomato Soup,Olive Oil,5.0
+Tomato Soup,Tomatoes,150.0
+Tomato Soup,Vegetable Broth,200.0
+Vegan Buddha Bowl,Almonds,10.0
+Vegan Buddha Bowl,Bell Peppers,30.0
+Vegan Buddha Bowl,Brown Rice,100.0
+Vegan Buddha Bowl,Edamame,60.0
+Vegan Buddha Bowl,Leaf Spinach,40.0
+Vegetable Stir Fry,Bell Peppers,50.0
+Vegetable Stir Fry,Fresh Wheat Noodles,120.0
+Vegetable Stir Fry,Garlic,5.0
+Vegetable Stir Fry,Leaf Spinach,30.0
+Vegetable Stir Fry,Olive Oil,8.0

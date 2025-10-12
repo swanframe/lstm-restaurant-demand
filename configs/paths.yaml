@@ -1,0 +1,7 @@
+# All paths are relative to the repository root
+paths:
+  data_raw: data/raw
+  data_interim: data/interim
+  data_processed: data/processed
+  figures: figures
+  artifacts: data/processed

@@ -1,0 +1,164 @@
+random_seed: 42
+
+files:
+  # File names expected in data/raw (Phase 2 will generate them)
+  ingredient_need_per_menu: ingredient_need_per_menu_in_grams.csv
+  menu_sales_wide: menu_sales_20230101-20250228.csv
+  seasonal_calendar: seasonal_calendar_20230101-20250228.csv
+
+splits:
+  # Dates must remain consistent with original logic; Phase 3 adjusts train_start after lag-7
+  train_start: 2023-01-08 # placeholder adjusted dynamically
+  train_end: 2024-10-31
+  val_start: 2024-11-01
+  val_end: 2024-12-31
+  test_start: 2025-01-01
+  test_end: 2025-02-28
+
+sequence:
+  sequence_length: 28
+  prediction_horizon: 1
+
+# Binary columns that should NOT be scaled
+binary_features:
+  - Weekday
+  - Public_Holiday
+  - Weekend
+  - Is_Monday
+  - Is_Tuesday
+  - Is_Wednesday
+  - Is_Thursday
+  - Is_Friday
+  - Is_Saturday
+  - Is_Sunday
+  - Restaurant_Open
+
+# Target ingredient columns (now defined from synthetic vocabulary)
+target_ingredients:
+  - Diced Chicken
+  - Leaf Spinach
+  - Lemon
+  - Brown Rice
+  - White Fish Fillet
+  - Button Mushrooms
+  - Raisins
+  - Almonds
+  - Lamb Shoulder
+  - Beef Sirloin
+  - Fresh Wheat Noodles
+  - Olive Oil
+  - Coconut Milk
+  - Banana
+  - Toasted Coconut Flakes
+  - Pastry Cream
+  - Edamame
+  - Wheat Flour
+  - Vegetable Broth
+  - Shrimp
+  - Bell Peppers
+  - Tomatoes
+  - Garlic
+
+# Categorical columns for One-Hot Encoding
+categorical_features:
+  - Special_Event
+  - Seasonal_Factor
+
+# Menu→ingredient filter mapping used during preprocessing join (Phase 3 will read this)
+menu_ingredient_filter:
+  Classic Burger:
+    - Beef Sirloin
+    - Wheat Flour
+    - Tomatoes
+    - Leaf Spinach
+    - Olive Oil
+    - Garlic
+  Grilled Chicken Salad:
+    - Diced Chicken
+    - Leaf Spinach
+    - Tomatoes
+    - Lemon
+    - Olive Oil
+  Margherita Pizza:
+    - Wheat Flour
+    - Tomatoes
+    - Olive Oil
+    - Garlic
+  Spaghetti Bolognese:
+    - Wheat Flour
+    - Beef Sirloin
+    - Tomatoes
+    - Garlic
+  Vegetable Stir Fry:
+    - Fresh Wheat Noodles
+    - Bell Peppers
+    - Leaf Spinach
+    - Garlic
+    - Olive Oil
+  Sushi Platter:
+    - White Fish Fillet
+    - Brown Rice
+    - Shrimp
+    - Edamame
+    - Coconut Milk
+  Chicken Tacos:
+    - Diced Chicken
+    - Fresh Wheat Noodles
+    - Tomatoes
+    - Bell Peppers
+    - Garlic
+  Beef Burrito:
+    - Beef Sirloin
+    - Brown Rice
+    - Tomatoes
+    - Leaf Spinach
+    - Garlic
+  Tomato Soup:
+    - Tomatoes
+    - Vegetable Broth
+    - Olive Oil
+    - Garlic
+  Mushroom Risotto:
+    - Button Mushrooms
+    - Brown Rice
+    - Olive Oil
+    - Garlic
+  BBQ Ribs:
+    - Lamb Shoulder
+    - Garlic
+    - Olive Oil
+  Seafood Paella:
+    - Shrimp
+    - White Fish Fillet
+    - Brown Rice
+    - Bell Peppers
+    - Garlic
+  Vegan Buddha Bowl:
+    - Brown Rice
+    - Edamame
+    - Leaf Spinach
+    - Bell Peppers
+    - Almonds
+  Pancake Stack:
+    - Wheat Flour
+    - Banana
+    - Pastry Cream
+    - Coconut Milk
+  Chocolate Cake:
+    - Wheat Flour
+    - Pastry Cream
+    - Toasted Coconut Flakes
+    - Raisins
+    - Almonds
+  Lemon Tart:
+    - Wheat Flour
+    - Lemon
+    - Pastry Cream
+    - Almonds
+  Fruit Smoothie:
+    - Banana
+    - Coconut Milk
+    - Raisins
+  Iced Coffee:
+    - Coconut Milk
+    - Almonds
