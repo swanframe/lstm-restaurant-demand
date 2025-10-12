@@ -1,5 +1,3 @@
-# README.md
-
 # LSTM Restaurant Raw Material Demand Prediction
 
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
@@ -64,7 +62,7 @@ This implementation mirrors the technical architecture and preprocessing logic f
 ### Clone the repository
 
 ```bash
-git clone https://github.com/<your-org-or-user>/lstm-restaurant-demand.git
+git clone https://github.com/swanframe/lstm-restaurant-demand.git
 cd lstm-restaurant-demand
 ```
 
