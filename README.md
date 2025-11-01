@@ -2,8 +2,10 @@
 
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![TensorFlow 2.16.2](https://img.shields.io/badge/TensorFlow-2.16.2-orange)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![MLOps](https://img.shields.io/badge/MLOps-Production%20Ready-green)
 
-Forecast **next-day ingredient demand (grams)** for restaurants using a two-layer LSTM. The repository includes a complete pipeline: data generation (synthetic), preprocessing, training, and prediction—driven by simple CLI commands and YAML configuration.
+Forecast **next-day ingredient demand (grams)** for restaurants using a two-layer LSTM. The repository includes a complete pipeline: data generation (synthetic), preprocessing, training, and prediction—driven by simple CLI commands and YAML configuration. Now with full Docker support for reproducible MLOps!
 
 ---
 
@@ -12,26 +14,25 @@ Forecast **next-day ingredient demand (grams)** for restaurants using a two-laye
 1. [Overview](#overview)
 2. [Why Synthetic Data?](#why-synthetic-data)
 3. [Quick Start](#quick-start)
-
    * [Clone the repository](#clone-the-repository)
    * [Install dependencies](#install-dependencies)
    * [Configure paths and parameters](#configure-paths-and-parameters)
-4. [End-to-End Usage](#end-to-end-usage)
-
+4. [Docker Deployment](#docker-deployment)
+5. [End-to-End Usage](#end-to-end-usage)
    * [Phase 2: Generate synthetic data](#phase-2-generate-synthetic-data)
    * [Phase 3: Preprocess](#phase-3-preprocess)
    * [Phase 4: Train](#phase-4-train)
    * [Phase 5: Predict next day](#phase-5-predict-next-day)
-5. [Using Your Own Data](#using-your-own-data)
-
+6. [Using Your Own Data](#using-your-own-data)
    * [CSV Schemas](#csv-schemas)
    * [Configuration Alignment](#configuration-alignment)
    * [Replacing the synthetic data](#replacing-the-synthetic-data)
-6. [Interpreting Outputs](#interpreting-outputs)
-7. [Project Structure](#project-structure)
-8. [Troubleshooting & FAQ](#troubleshooting--faq)
-9. [Contact](#contact)
-10. [License](#license)
+7. [Interpreting Outputs](#interpreting-outputs)
+8. [Project Structure](#project-structure)
+9. [Model Performance](#model-performance)
+10. [Troubleshooting & FAQ](#troubleshooting--faq)
+11. [Contact](#contact)
+12. [License](#license)
 
 ---
 
@@ -44,6 +45,7 @@ It includes:
 * **Preprocessing:** merge, time-based interpolation, lag features (t-1, t-7), One-Hot Encoding for categorical factors, chronological train/val/test split, MinMax scaling, and sequence building.
 * **Model:** LSTM with 2 layers (128 and 64 units) + dropout, MSE loss, MAE metric, EarlyStopping and model checkpointing (TensorFlow 2.16.2).
 * **Outputs:** trained model files, metrics, plots, and next-day ingredient demand predictions in grams.
+* **MLOps:** Full Docker containerization for reproducible experimentation and deployment.
 
 This implementation mirrors the technical architecture and preprocessing logic from the published research while using synthetic data for safe public release.
 
@@ -54,6 +56,7 @@ This implementation mirrors the technical architecture and preprocessing logic f
 * **Confidentiality:** Original research used proprietary restaurant data that cannot be shared. Synthetic data protects sensitive information.
 * **Accessibility:** Anyone can run the full pipeline immediately without requesting data access.
 * **Customization:** Synthetic data matches the expected schemas, so it’s straightforward to swap in your restaurant’s data.
+* **Reproducibility:** Consistent results across different environments using Docker.
 
 ---
 
@@ -92,6 +95,76 @@ pip install -e .
 
 * Open `configs/paths.yaml` to confirm data/artifact folders.
 * Open `configs/params.yaml` to review sequence length, date splits, categorical/binary features, and (later) your target ingredient list.
+
+---
+
+## Docker Deployment
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/) (recommended)
+
+### Quick Start with Docker Compose (Recommended)
+
+Run the entire pipeline with one command:
+
+```bash
+docker-compose up ml-pipeline
+```
+
+This will:
+1. Build the Docker image (if not exists)
+2. Generate synthetic data
+3. Preprocess features
+4. Train the LSTM model
+5. Generate next-day predictions
+
+### Manual Docker Execution
+
+**Build the image:**
+```bash
+docker build -t restaurant-lstm .
+```
+
+**Run individual steps:**
+```bash
+# Generate synthetic data
+docker run -v $(pwd)/data:/app/data restaurant-lstm make data-synth
+
+# Preprocess
+docker run -v $(pwd)/data:/app/data restaurant-lstm make preprocess
+
+# Train model
+docker run -v $(pwd)/data:/app/data -v $(pwd)/figures:/app/figures restaurant-lstm make train
+
+# Generate predictions
+docker run -v $(pwd)/data:/app/data restaurant-lstm make predict
+```
+
+### Development with Docker
+
+**Interactive shell:**
+```bash
+docker-compose run ml-shell
+# Inside container, run:
+# make data-synth
+# make preprocess
+# make train
+# make predict
+```
+
+**Run specific Python scripts:**
+```bash
+docker run -v $(pwd)/data:/app/data restaurant-lstm python scripts/run_training.py --config configs/params.yaml --paths configs/paths.yaml
+```
+
+### Docker Benefits
+
+- ✅ **Reproducible environments** across different machines
+- ✅ **No dependency conflicts**
+- ✅ **Easy deployment** to cloud platforms (AWS, GCP, Azure)
+- ✅ **Consistent results** from development to production
 
 ---
 
@@ -215,6 +288,9 @@ make predict
 ```
 lstm-restaurant-demand/
 ├── README.md
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
 ├── pyproject.toml
 ├── requirements.txt
 ├── .gitignore
@@ -244,7 +320,40 @@ lstm-restaurant-demand/
 
 ---
 
+## Model Performance
+
+### Expected Results
+- **Test MAE**: ~0.124 (scaled), ~1200-1500 grams (actual)
+- **Training Time**: 10-15 minutes on CPU
+- **Sequence Length**: 28 days
+- **Prediction Horizon**: 1 day (next-day forecast)
+
+### Key Features
+- **Multi-target Forecasting**: Predicts 23+ ingredients simultaneously
+- **Temporal Features**: Lag features (t-1, t-7) and seasonal patterns
+- **Robust Preprocessing**: Handles missing data, feature scaling, and one-hot encoding
+- **Early Stopping**: Prevents overfitting with automatic training optimization
+
+---
+
 ## Troubleshooting & FAQ
+
+### Docker Issues
+
+**"exec: 'make': executable file not found in $PATH"**
+- Use the updated Dockerfile that includes `make` installation
+- Or use direct Python commands: `python scripts/run_training.py...`
+
+**Docker out of disk space**
+```bash
+docker system prune
+docker image prune -a
+```
+
+**Container can't write to volumes**
+- Ensure directories have proper permissions: `chmod 755 data figures`
+
+### Model Training
 
 **TensorFlow not finding GPU / install errors**
 Use CPU first (requirements as pinned). For GPU, match CUDA/cuDNN to TF 2.16.2 per TensorFlow docs.
@@ -267,13 +376,24 @@ pip install -e .
 
 This installs the project in development mode so the `src` package is discoverable.
 
+### Performance Optimization
+
+**Training is too slow**
+- Reduce `epochs` in `ModelConfig` (default: 200 → try 50)
+- Reduce `batch_size` (default: 64 → try 32)
+- Reduce `sequence_length` (default: 28 → try 14)
+
+**Out of memory errors**
+- Reduce the number of `target_ingredients`
+- Use smaller LSTM units (128→64, 64→32)
+
 ---
 
 ## Contact
 
 Maintainer: **Rahman**
 
-* Email: **[211110108@student.mercubuana-yogya.ac.id](mailto:211110108@student.mercubuana-yogya.ac.id)**
+* Email: **[arahmanwahid@outlook.com](mailto:arahmanwahid@outlook.com)**
 * GitHub: **@swanframe**
 
 Issues and feature requests are welcome via the repository’s **Issues** tab.

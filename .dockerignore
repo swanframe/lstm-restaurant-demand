@@ -1,0 +1,16 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv
+.env
+.DS_Store
+.ipynb_checkpoints
+data/interim/*
+data/processed/*
+figures/*
+*.keras
+*.pkl
+*.npy
+.git

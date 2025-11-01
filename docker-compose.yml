@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ml-pipeline:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./figures:/app/figures
+    command: >
+      sh -c "python scripts/generate_synthetic_data.py --config configs/params.yaml --paths configs/paths.yaml &&
+             python scripts/run_preprocessing.py --config configs/params.yaml --paths configs/paths.yaml &&
+             python scripts/run_training.py --config configs/params.yaml --paths configs/paths.yaml &&
+             python scripts/run_prediction.py --config configs/params.yaml --paths configs/paths.yaml"
+    
+  ml-shell:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./figures:/app/figures
+    stdin_open: true
+    tty: true
+    command: bash
